@@ -1,0 +1,3 @@
+# Placeholder file untuk direktori images
+# Tambahkan gambar cover album, logo, dan assets lainnya di sini
+# Format yang didukung: PNG, JPG, GIF, WebP

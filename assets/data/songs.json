@@ -1,0 +1,271 @@
+{
+  "songs": [
+    {
+      "id": "1",
+      "title": "Blinding Lights",
+      "artist": "The Weeknd",
+      "genre": "Pop",
+      "duration": "3:22",
+      "durationSeconds": 202,
+      "audioPath": "assets/audio/The Weeknd - Blinding Lights).mp3",
+      "coverPath": "assets/images/Blinding - lights.jpg",
+      "album": "After Hours",
+      "year": 2020
+    },
+    {
+      "id": "2", 
+      "title": "Shape of You",
+      "artist": "Ed Sheeran",
+      "genre": "Pop",
+      "duration": "3:53",
+      "durationSeconds": 233,
+      "audioPath": "assets/audio/Ed Sheeran - Shape of You.mp3",
+      "coverPath": "assets/images/Ed Sheeran - Shape of You.jpg",
+      "album": "÷ (Divide)",
+      "year": 2017
+    },
+    {
+      "id": "3",
+      "title": "Bohemian Rhapsody",
+      "artist": "Queen",
+      "genre": "Rock",
+      "duration": "5:55",
+      "durationSeconds": 355,
+      "audioPath": "assets/audio/Queen – Bohemian Rhapsody.mp3",
+      "coverPath": "assets/images/bohemian_rhapsody.jpg",
+      "album": "A Night at the Opera",
+      "year": 1975
+    },
+    {
+      "id": "4",
+      "title": "Hotel California",
+      "artist": "Eagles",
+      "genre": "Rock",
+      "duration": "6:30",
+      "durationSeconds": 390,
+      "audioPath": "assets/audio/Eagles - Hotel California .mp3",
+      "coverPath": "assets/images/hotel_california.jpg",
+      "album": "Hotel California",
+      "year": 1976
+    },
+    {
+      "id": "5",
+      "title": "Take Five",
+      "artist": "Dave Brubeck",
+      "genre": "Jazz",
+      "duration": "5:24",
+      "durationSeconds": 324,
+      "audioPath": "assets/audio/Dave Brubeck The Dave Brubeck Quartet - Take Five.mp3",
+      "coverPath": "assets/images/Take Five.jpg",
+      "album": "Time Out",
+      "year": 1959
+    },
+    {
+      "id": "6",
+      "title": "Blue in Green",
+      "artist": "Miles Davis",
+      "genre": "Jazz",
+      "duration": "5:37",
+      "durationSeconds": 337,
+      "audioPath": "assets/audio/Miles Davis - Blue In Green.mp3",
+      "coverPath": "assets/images/Blue in Green.jpg",
+      "album": "Kind of Blue",
+      "year": 1959
+    },
+    {
+      "id": "7",
+      "title": "Coffee for Your Head",
+      "artist": "Powfu",
+      "genre": "Lo-Fi",
+      "duration": "2:07",
+      "durationSeconds": 127,
+      "audioPath": "assets/audio/Powfu - death bed (coffee for your head) (Official Video) ft. beabadoobee.mp3",
+      "coverPath": "assets/images/Coffe for your head.jpg",
+      "album": "some boring love stories pt. 5",
+      "year": 2020
+    },
+    {
+      "id": "8",
+      "title": "Study Session",
+      "artist": "Chillhop Music",
+      "genre": "Lo-Fi",
+      "duration": "3:45",
+      "durationSeconds": 225,
+      "audioPath": "assets/audio/Study Session.mp3",
+      "coverPath": "assets/images/Study_session.jpg",
+      "album": "Chillhop Essentials",
+      "year": 2021
+    },
+    {
+      "id": "9",
+      "title": "Somebody That I Used to Know",
+      "artist": "Gotye",
+      "genre": "Indie",
+      "duration": "4:04",
+      "durationSeconds": 244,
+      "audioPath": "assets/audio/Gotye - Somebody That I Used To Know.mp3",
+      "coverPath": "assets/images/'Somebody That I Used To Know' de Gotye.jpg", 
+      "album": "Making Mirrors",
+      "year": 2011
+    },
+    {
+      "id": "10",
+      "title": "Electric Feel",
+      "artist": "MGMT",
+      "genre": "Indie",
+      "duration": "3:49",
+      "durationSeconds": 229,
+      "audioPath": "assets/audio/MGMT - Electric Feel.mp3",
+      "coverPath": "assets/images/MGTM - Electric feel.jpg",
+      "album": "Oracular Spectacular",
+      "year": 2007
+    },
+    {
+      "id": "11",
+      "title": "Good 4 U",
+      "artist": "Olivia Rodrigo", 
+      "genre": "Pop",
+      "duration": "2:58",
+      "durationSeconds": 178,
+      "audioPath": "assets/audio/Olivia Rodrigo - good 4 u.mp3",
+      "coverPath": "assets/images/good - 4u.jpg",
+      "album": "SOUR",
+      "year": 2021
+    },
+    {
+      "id": "12",
+      "title": "Thunderstruck",
+      "artist": "AC/DC",
+      "genre": "Rock", 
+      "duration": "4:52",
+      "durationSeconds": 292,
+      "audioPath": "assets/audio/AC DC - Thunderstruck.mp3",
+      "coverPath": "assets/images/AC_DC Thunderstruck.jpg",
+      "album": "The Razors Edge",
+      "year": 1990
+    },
+    {
+      "id": "13",
+      "title": "Autumn Leaves",
+      "artist": "Bill Evans",
+      "genre": "Jazz",
+      "duration": "6:14",
+      "durationSeconds": 374,
+      "audioPath": "assets/audio/Autumn Leaves.mp3",
+      "coverPath": "assets/images/Autumn_leaves.jpg",
+      "album": "Portrait in Jazz",
+      "year": 1960
+    },
+    {
+      "id": "14",
+      "title": "Midnight City", 
+      "artist": "M83",
+      "genre": "Indie",
+      "duration": "4:03",
+      "durationSeconds": 243,
+      "audioPath": "assets/audio/M83 - Midnight City.mp3",
+      "coverPath": "assets/images/M83 - 'Midnight city'.jpg",
+      "album": "Hurry Up, We're Dreaming",
+      "year": 2011
+    },
+    {
+      "id": "15",
+      "title": "bliss lofi hip hop beat",
+      "artist": "bliss",
+      "genre": "Lo-Fi",
+      "duration": "2:30",
+      "durationSeconds": 150,
+      "audioPath": "assets/audio/bliss - lofi hip hop beat.mp3",
+      "coverPath": "assets/images/bliss - lofi hip hop beat.jpg",
+      "album": "24/7 Study Beats",
+      "year": 2022
+    },
+    {
+      "id": "16",
+      "title": "One in a Million",
+      "artist": "Ne-Yo",
+      "genre": "Pop",
+      "duration": "4:06",
+      "durationSeconds": 246,
+      "audioPath": "assets/audio/One In A Million - NeYo.mp3",
+      "coverPath": "assets/images/NE-YO - One a Million.jpg",
+      "album": "Year of the Gentleman",
+      "year": 2008
+    },
+    {
+      "id": "17",
+      "title": "A Little Piece of Heaven",
+      "artist": "Avenged Sevenfold",
+      "genre": "Rock",
+      "duration": "8:01",
+      "durationSeconds": 481,
+      "audioPath": "assets/audio/A Little Piece of Heaven.mp3",
+      "coverPath": "assets/images/Avenged Sevenfold - A Little Piece of Heaven.jpg",
+      "album": "Avenged Sevenfold",
+      "year": 2007
+    },
+    {
+      "id": "18",
+      "title": "All the Time",
+      "artist": "The Sigit",
+      "genre": "Rock",
+      "duration": "3:45",
+      "durationSeconds": 225,
+      "audioPath": "assets/audio/The Sigit - All the Time.mp3",
+      "coverPath": "assets/images/The Sigit - All the Time.jpg",
+      "album": "Visible Idea of Perfection",
+      "year": 2011
+    },
+    {
+      "id": "19",
+      "title": "Safe and Sound",
+      "artist": "Rebelution",
+      "genre": "Indie",
+      "duration": "3:52",
+      "durationSeconds": 232,
+      "audioPath": "assets/audio/Rebelution - Safe and Sound.mp3",
+      "coverPath": "assets/images/Rebelution - Safe and Sound.jpg",
+      "album": "Peace of Mind",
+      "year": 2012
+    },
+    {
+      "id": "20",
+      "title": "Zona Nyaman",
+      "artist": "Fourtwnty",
+      "genre": "Indie",
+      "duration": "4:15",
+      "durationSeconds": 255,
+      "audioPath": "assets/audio/Fourtwnty - Zona Nyaman.mp3",
+      "coverPath": "assets/images/fourtwnty - zona nyaman.jpg",
+      "album": "Lelaku",
+      "year": 2013
+    }
+  ],
+  "genres": [
+    {
+      "name": "Pop",
+      "color": "#FF6B6B",
+      "description": "Musik populer modern"
+    },
+    {
+      "name": "Rock", 
+      "color": "#4ECDC4",
+      "description": "Musik rock klasik dan modern"
+    },
+    {
+      "name": "Jazz",
+      "color": "#45B7D1", 
+      "description": "Musik jazz klasik dan kontemporer"
+    },
+    {
+      "name": "Lo-Fi",
+      "color": "#96CEB4",
+      "description": "Musik santai untuk study dan relaksasi"
+    },
+    {
+      "name": "Indie",
+      "color": "#FFEAA7",
+      "description": "Musik indie dan alternatif"
+    }
+  ]
+}
