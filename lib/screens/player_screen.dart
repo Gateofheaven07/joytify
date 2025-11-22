@@ -19,6 +19,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
   bool _isPlaying = false;
   bool _isShuffled = false;
   RepeatMode _repeatMode = RepeatMode.none;
+  bool _isDragging = false;
+  double? _dragPosition;
   StreamSubscription? _songSubscription;
   StreamSubscription? _positionSubscription;
   StreamSubscription? _durationSubscription;
@@ -362,52 +364,113 @@ class _PlayerScreenState extends State<PlayerScreen> {
                 ),
               ),
 
-              // Progress Bar
+              // Progress Bar dengan animasi real-time
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Column(
                   children: [
-                    SliderTheme(
-                      data: SliderTheme.of(context).copyWith(
-                        trackHeight: 4,
-                        thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6),
-                        overlayShape: const RoundSliderOverlayShape(overlayRadius: 16),
-                      ),
-                      child: Slider(
-                        value: _duration.inMilliseconds > 0
-                            ? _position.inMilliseconds.toDouble()
-                            : 0.0,
-                        max: _duration.inMilliseconds > 0
-                            ? _duration.inMilliseconds.toDouble()
-                            : 100.0,
-                        activeColor: Colors.white,
-                        inactiveColor: Colors.white.withOpacity(0.3),
-                        onChanged: (value) {
-                          _musicService.seek(Duration(milliseconds: value.toInt()));
-                        },
-                      ),
+                    StreamBuilder<Duration>(
+                      stream: _musicService.positionStream,
+                      builder: (context, positionSnapshot) {
+                        return StreamBuilder<Duration>(
+                          stream: _musicService.durationStream,
+                          builder: (context, durationSnapshot) {
+                            final currentPosition = positionSnapshot.data ?? _position;
+                            final currentDuration = durationSnapshot.data ?? _duration;
+                            
+                            // Gunakan drag position jika sedang drag, otherwise gunakan position real-time
+                            final displayPosition = _isDragging && _dragPosition != null
+                                ? _dragPosition!
+                                : (currentDuration.inMilliseconds > 0
+                                    ? currentPosition.inMilliseconds.toDouble()
+                                    : 0.0);
+                            
+                            final maxValue = currentDuration.inMilliseconds > 0
+                                ? currentDuration.inMilliseconds.toDouble()
+                                : 100.0;
+
+                            return SliderTheme(
+                              data: SliderTheme.of(context).copyWith(
+                                trackHeight: 4,
+                                thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 6),
+                                overlayShape: const RoundSliderOverlayShape(overlayRadius: 16),
+                                activeTrackColor: Colors.white,
+                                inactiveTrackColor: Colors.white.withOpacity(0.3),
+                                thumbColor: Colors.white,
+                                overlayColor: Colors.white.withOpacity(0.2),
+                              ),
+                              child: Slider(
+                                value: displayPosition.clamp(0.0, maxValue),
+                                max: maxValue,
+                                activeColor: Colors.white,
+                                inactiveColor: Colors.white.withOpacity(0.3),
+                                onChanged: (value) {
+                                  setState(() {
+                                    _isDragging = true;
+                                    _dragPosition = value;
+                                  });
+                                },
+                                onChangeStart: (value) {
+                                  setState(() {
+                                    _isDragging = true;
+                                    _dragPosition = value;
+                                  });
+                                },
+                                onChangeEnd: (value) {
+                                  setState(() {
+                                    _isDragging = false;
+                                    _dragPosition = null;
+                                  });
+                                  _musicService.seek(Duration(milliseconds: value.toInt()));
+                                },
+                              ),
+                            );
+                          },
+                        );
+                      },
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            _formatDuration(_position),
-                            style: TextStyle(
-                              color: Colors.white.withOpacity(0.8),
-                              fontSize: 12,
-                            ),
-                          ),
-                          Text(
-                            _formatDuration(_duration),
-                            style: TextStyle(
-                              color: Colors.white.withOpacity(0.8),
-                              fontSize: 12,
-                            ),
-                          ),
-                        ],
-                      ),
+                    StreamBuilder<Duration>(
+                      stream: _musicService.positionStream,
+                      builder: (context, positionSnapshot) {
+                        return StreamBuilder<Duration>(
+                          stream: _musicService.durationStream,
+                          builder: (context, durationSnapshot) {
+                            final currentPosition = positionSnapshot.data ?? _position;
+                            final currentDuration = durationSnapshot.data ?? _duration;
+                            
+                            // Format durasi yang ditampilkan saat drag
+                            final displayPosition = _isDragging && _dragPosition != null
+                                ? Duration(milliseconds: _dragPosition!.toInt())
+                                : currentPosition;
+
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 4),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  AnimatedDefaultTextStyle(
+                                    duration: const Duration(milliseconds: 100),
+                                    style: TextStyle(
+                                      color: Colors.white.withOpacity(0.8),
+                                      fontSize: 12,
+                                    ),
+                                    child: Text(
+                                      _formatDuration(displayPosition),
+                                    ),
+                                  ),
+                                  Text(
+                                    _formatDuration(currentDuration),
+                                    style: TextStyle(
+                                      color: Colors.white.withOpacity(0.8),
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      },
                     ),
                   ],
                 ),
