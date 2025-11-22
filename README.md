@@ -1,6 +1,6 @@
-# 🎵 Joytify - Aplikasi Pemutar Musik Web
+# 🎵 Joytify - Aplikasi Pemutar Musik
 
-Joytify adalah aplikasi pemutar musik web modern yang mirip dengan Spotify, dibangun menggunakan Flutter Web. Aplikasi ini memungkinkan Anda untuk memutar musik lokal, membuat playlist, dan menikmati pengalaman mendengarkan musik yang elegan di browser.
+Joytify adalah aplikasi pemutar musik modern yang mirip dengan Spotify, dibangun menggunakan Flutter. Aplikasi ini memungkinkan Anda untuk memutar musik lokal, membuat playlist, dan menikmati pengalaman mendengarkan musik yang elegan di aplikasi dan browser.
 
 ## ✨ Fitur Utama
 
