@@ -393,10 +393,10 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           
-          // Sleep Timer Bell Icon
+          // Sleep Timer Timer Icon
           IconButton(
             icon: Icon(
-              Icons.bedtime_rounded,
+              Icons.timer,
               color: Colors.white,
               size: 24,
             ),
@@ -890,43 +890,23 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Future<void> _playSongAndNavigate(Song song) async {
+  void _playSongAndNavigate(Song song) {
     print('_playSongAndNavigate: Starting to play ${song.title}');
-    try {
-      // Play song first
-      await MusicService().playSong(song, playlist: _allSongs);
-      print('_playSongAndNavigate: Song played, navigating to PlayerScreen');
-      
-      // Navigate immediately - the PlayerScreen will load current song from service
-      if (mounted) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              print('_playSongAndNavigate: Building PlayerScreen');
-              return PlayerScreen();
-            },
-          ),
-        ).then((_) {
-          print('_playSongAndNavigate: Navigation completed');
-        }).catchError((error) {
-          print('_playSongAndNavigate: Navigation error: $error');
-        });
-      } else {
-        print('_playSongAndNavigate: Widget not mounted, cannot navigate');
-      }
-    } catch (e) {
+    
+    // Play song without awaiting completion
+    MusicService().playSong(song, playlist: _allSongs).catchError((e) {
       print('_playSongAndNavigate: Error playing song: $e');
-      // Still try to navigate even if playSong fails
-      if (mounted) {
-        print('_playSongAndNavigate: Attempting navigation despite error');
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PlayerScreen(),
-          ),
-        );
-      }
+    });
+
+    print('_playSongAndNavigate: Navigating to PlayerScreen immediately');
+    
+    if (mounted) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PlayerScreen(),
+        ),
+      );
     }
   }
 
@@ -2097,7 +2077,7 @@ class _HomeScreenState extends State<HomeScreen> {
           title: Row(
             children: [
               Icon(
-                Icons.bedtime_rounded,
+                Icons.timer,
                 color: AppTheme.primaryColor,
                 size: 24,
               ),
@@ -2221,9 +2201,13 @@ class _PlaylistDetailScreenState extends State<_PlaylistDetailScreen> {
     });
   }
 
-  Future<void> _playSongAndNavigate(Song song) async {
+  void _playSongAndNavigate(Song song) {
     final playlist = SongService.getPlaylistSongs(widget.playlist.id);
-    await MusicService().playSong(song, playlist: playlist);
+    // Play song without awaiting
+    MusicService().playSong(song, playlist: playlist).catchError((e) {
+      print('Error playing song: $e');
+    });
+    
     if (mounted) {
       Navigator.push(
         context,
@@ -2237,7 +2221,7 @@ class _PlaylistDetailScreenState extends State<_PlaylistDetailScreen> {
   Future<void> _handleMenuAction(String action, Song song) async {
     switch (action) {
       case 'play':
-        await _playSongAndNavigate(song);
+        _playSongAndNavigate(song);
         break;
       case 'like':
         await _toggleLikeSong(song);
@@ -2740,9 +2724,13 @@ class _FeaturedPlaylistDetailScreen extends StatefulWidget {
 }
 
 class _FeaturedPlaylistDetailScreenState extends State<_FeaturedPlaylistDetailScreen> {
-  Future<void> _playSongAndNavigate(Song song) async {
+  void _playSongAndNavigate(Song song) {
     final playlist = widget.songs;
-    await MusicService().playSong(song, playlist: playlist);
+    // Play song without awaiting
+    MusicService().playSong(song, playlist: playlist).catchError((e) {
+      print('Error playing song: $e');
+    });
+    
     if (mounted) {
       Navigator.push(
         context,
@@ -2756,7 +2744,7 @@ class _FeaturedPlaylistDetailScreenState extends State<_FeaturedPlaylistDetailSc
   Future<void> _handleMenuAction(String action, Song song) async {
     switch (action) {
       case 'play':
-        await _playSongAndNavigate(song);
+        _playSongAndNavigate(song);
         break;
       case 'like':
         await _toggleLikeSong(song);
@@ -3286,9 +3274,13 @@ class _TopHitsScreen extends StatefulWidget {
 }
 
 class _TopHitsScreenState extends State<_TopHitsScreen> {
-  Future<void> _playSongAndNavigate(Song song) async {
+  void _playSongAndNavigate(Song song) {
     final playlist = widget.songs;
-    await MusicService().playSong(song, playlist: playlist);
+    // Play song without awaiting
+    MusicService().playSong(song, playlist: playlist).catchError((e) {
+      print('Error playing song: $e');
+    });
+    
     if (mounted) {
       Navigator.push(
         context,
@@ -3302,7 +3294,7 @@ class _TopHitsScreenState extends State<_TopHitsScreen> {
   Future<void> _handleMenuAction(String action, Song song) async {
     switch (action) {
       case 'play':
-        await _playSongAndNavigate(song);
+        _playSongAndNavigate(song);
         break;
       case 'like':
         await _toggleLikeSong(song);

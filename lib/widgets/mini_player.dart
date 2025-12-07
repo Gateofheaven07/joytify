@@ -85,8 +85,12 @@ class _MiniPlayerState extends State<MiniPlayer> {
 
   void _togglePlayPause() {
     // Selalu gunakan state dari service untuk memastikan sinkronisasi
-    final currentIsPlaying = _musicService.isPlaying;
-    if (currentIsPlaying) {
+    // Anggap loading sebagai playing agar user bisa pause/stop saat loading
+    final currentState = _musicService.playerState;
+    final isPlayingOrLoading = currentState == MusicPlayerState.playing || 
+                             currentState == MusicPlayerState.loading;
+    
+    if (isPlayingOrLoading) {
       _musicService.pause();
     } else {
       _musicService.play();
@@ -126,9 +130,11 @@ class _MiniPlayerState extends State<MiniPlayer> {
       builder: (context, stateSnapshot) {
         // Selalu gunakan data terbaru dari stream
         final currentState = stateSnapshot.data ?? _musicService.playerState;
-        final isPlaying = currentState == MusicPlayerState.playing;
+        // Tampilkan tombol pause jika sedang playing atau loading
+        final showPauseIcon = currentState == MusicPlayerState.playing || 
+                            currentState == MusicPlayerState.loading;
         
-        return _buildMiniPlayerContent(isPlaying);
+        return _buildMiniPlayerContent(showPauseIcon);
       },
     );
   }

@@ -43,43 +43,29 @@ class _GenreSongsScreenState extends State<GenreSongsScreen> {
     }
   }
 
-  Future<void> _playSongAndNavigate(Song song) async {
+  void _playSongAndNavigate(Song song) {
     print('_playSongAndNavigate: Starting to play ${song.title}');
-    try {
-      // Play song first
-      await MusicService().playSong(song, playlist: _genreSongs);
-      print('_playSongAndNavigate: Song played, navigating to PlayerScreen');
-      
-      // Navigate immediately - the PlayerScreen will load current song from service
-      if (mounted) {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) {
-              print('_playSongAndNavigate: Building PlayerScreen');
-              return PlayerScreen();
-            },
-          ),
-        ).then((_) {
-          print('_playSongAndNavigate: Navigation completed');
-        }).catchError((error) {
-          print('_playSongAndNavigate: Navigation error: $error');
-        });
-      } else {
-        print('_playSongAndNavigate: Widget not mounted, cannot navigate');
-      }
-    } catch (e) {
+    
+    // Play song without awaiting completion to ensure immediate navigation
+    MusicService().playSong(song, playlist: _genreSongs).catchError((e) {
       print('_playSongAndNavigate: Error playing song: $e');
-      // Still try to navigate even if playSong fails
-      if (mounted) {
-        print('_playSongAndNavigate: Attempting navigation despite error');
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PlayerScreen(),
-          ),
-        );
-      }
+    });
+    
+    print('_playSongAndNavigate: Navigating to PlayerScreen immediately');
+    
+    // Navigate immediately
+    if (mounted) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) {
+            print('_playSongAndNavigate: Building PlayerScreen');
+            return PlayerScreen();
+          },
+        ),
+      ).then((_) {
+        print('_playSongAndNavigate: Navigation completed');
+      });
     }
   }
 

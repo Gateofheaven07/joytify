@@ -109,19 +109,19 @@ class MusicService {
   }
 
   void _updatePlayerState(PlayerState state) {
-    _currentPlayerState = _mapPlayerState();
+    _currentPlayerState = _mapPlayerState(state);
     _playerStateController.add(_currentPlayerState);
   }
 
-  MusicPlayerState _mapPlayerState() {
-    switch (_audioPlayer.processingState) {
+  MusicPlayerState _mapPlayerState(PlayerState state) {
+    switch (state.processingState) {
       case ProcessingState.idle:
         return MusicPlayerState.stopped;
       case ProcessingState.loading:
       case ProcessingState.buffering:
         return MusicPlayerState.loading;
       case ProcessingState.ready:
-        return _audioPlayer.playing ? MusicPlayerState.playing : MusicPlayerState.paused;
+        return state.playing ? MusicPlayerState.playing : MusicPlayerState.paused;
       case ProcessingState.completed:
         return MusicPlayerState.stopped;
     }

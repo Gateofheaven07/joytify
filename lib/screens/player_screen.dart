@@ -58,6 +58,9 @@ class _PlayerScreenState extends State<PlayerScreen> {
         _currentSong = currentSong;
         _isShuffled = _musicService.isShuffled;
         _repeatMode = _musicService.repeatMode;
+        
+        final state = _musicService.playerState;
+        _isPlaying = state == MusicPlayerState.playing || state == MusicPlayerState.loading;
       });
       print('_loadCurrentSong: Updated _currentSong to ${_currentSong?.title}');
     } else {
@@ -127,7 +130,8 @@ class _PlayerScreenState extends State<PlayerScreen> {
     _stateSubscription = _musicService.playerStateStream.listen((state) {
       if (mounted) {
         setState(() {
-          _isPlaying = state == MusicPlayerState.playing;
+          _isPlaying = state == MusicPlayerState.playing || 
+                      state == MusicPlayerState.loading;
         });
       }
     });
