@@ -29,6 +29,11 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
   bool _loginLoading = false;
   bool _registerLoading = false;
 
+  // Password visibility
+  bool _isLoginPasswordVisible = false;
+  bool _isRegisterPasswordVisible = false;
+  bool _isConfirmPasswordVisible = false;
+
   @override
   void initState() {
     super.initState();
@@ -331,7 +336,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
           // Password Field
           TextFormField(
             controller: _loginPasswordController,
-            obscureText: true,
+            obscureText: !_isLoginPasswordVisible,
             textInputAction: TextInputAction.done,
             style: const TextStyle(color: Colors.white),
             decoration: InputDecoration(
@@ -340,6 +345,17 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
               hintText: 'Masukkan password Anda',
               hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
               prefixIcon: Icon(Icons.lock, color: AppTheme.primaryColor),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _isLoginPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: Colors.white.withOpacity(0.6),
+                ),
+                onPressed: () {
+                  setState(() {
+                    _isLoginPasswordVisible = !_isLoginPasswordVisible;
+                  });
+                },
+              ),
               filled: true,
               fillColor: Colors.white.withOpacity(0.1),
               border: OutlineInputBorder(
@@ -459,7 +475,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
           // Password Field
           TextFormField(
             controller: _registerPasswordController,
-            obscureText: true,
+            obscureText: !_isRegisterPasswordVisible,
             textInputAction: TextInputAction.next,
             style: const TextStyle(color: Colors.white),
             decoration: InputDecoration(
@@ -468,6 +484,17 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
               hintText: 'Masukkan password Anda',
               hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
               prefixIcon: Icon(Icons.lock, color: AppTheme.primaryColor),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _isRegisterPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: Colors.white.withOpacity(0.6),
+                ),
+                onPressed: () {
+                  setState(() {
+                    _isRegisterPasswordVisible = !_isRegisterPasswordVisible;
+                  });
+                },
+              ),
               filled: true,
               fillColor: Colors.white.withOpacity(0.1),
               border: OutlineInputBorder(
@@ -490,7 +517,7 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
           // Confirm Password Field
           TextFormField(
             controller: _registerConfirmPasswordController,
-            obscureText: true,
+            obscureText: !_isConfirmPasswordVisible,
             textInputAction: TextInputAction.done,
             style: const TextStyle(color: Colors.white),
             decoration: InputDecoration(
@@ -499,6 +526,17 @@ class _AuthScreenState extends State<AuthScreen> with TickerProviderStateMixin {
               hintText: 'Konfirmasi password Anda',
               hintStyle: TextStyle(color: Colors.white.withOpacity(0.5)),
               prefixIcon: Icon(Icons.lock_outline, color: AppTheme.primaryColor),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  _isConfirmPasswordVisible ? Icons.visibility : Icons.visibility_off,
+                  color: Colors.white.withOpacity(0.6),
+                ),
+                onPressed: () {
+                  setState(() {
+                    _isConfirmPasswordVisible = !_isConfirmPasswordVisible;
+                  });
+                },
+              ),
               filled: true,
               fillColor: Colors.white.withOpacity(0.1),
               border: OutlineInputBorder(

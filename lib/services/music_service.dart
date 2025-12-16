@@ -186,9 +186,21 @@ class MusicService {
         }
         _playlistController.add(_currentPlaylist);
       } else {
-        _currentPlaylist = [song];
-        _currentIndex = 0;
-        _playlistController.add(_currentPlaylist);
+        // If no new playlist is provided, check if the song exists in the current playlist
+        // This is crucial for next/previous functionality which calls playSong with just the song
+        final existingIndex = _currentPlaylist.indexWhere((s) => s.id == song.id);
+        
+        if (existingIndex != -1) {
+          // Song is in current playlist, preserve the playlist
+          _currentIndex = existingIndex;
+          print('MusicService.playSong: Playing song from existing playlist at index $_currentIndex');
+        } else {
+          // Song is not in current playlist (e.g. playing from search result), create new playlist
+          _currentPlaylist = [song];
+          _currentIndex = 0;
+          _playlistController.add(_currentPlaylist);
+          print('MusicService.playSong: Created new playlist with single song');
+        }
       }
 
       // Verify current song is still correct before loading audio
@@ -252,6 +264,8 @@ class MusicService {
   Future<void> next() async {
     if (_currentPlaylist.isEmpty) return;
 
+    print('MusicService.next: Moving to next song');
+
     if (_isShuffled) {
       final random = Random();
       int nextIndex;
@@ -262,17 +276,45 @@ class MusicService {
     } else {
       _currentIndex = (_currentIndex + 1) % _currentPlaylist.length;
     }
-
+    
+    print('MusicService.next: New index $_currentIndex');
     await playSong(_currentPlaylist[_currentIndex]);
   }
+
+  DateTime? _lastPreviousTapTime;
 
   Future<void> previous() async {
     if (_currentPlaylist.isEmpty) return;
 
+    // Smart Previous Logic:
+    // Jika user klik 2x cepat (< 1 detik), paksa pindah ke lagu sebelumnya
+    final now = DateTime.now();
+    final bool isDoubleTap = _lastPreviousTapTime != null && 
+        now.difference(_lastPreviousTapTime!) < const Duration(milliseconds: 1000);
+    
+    _lastPreviousTapTime = now;
+
+    if (isDoubleTap) {
+       print('MusicService.previous: Double tap detected, forcing previous song');
+       await forcePrevious();
+       _lastPreviousTapTime = null; // Reset
+       return;
+    }
+
+    // Normal Logic:
+    // Selalu kembali ke awal lagu jika posisi > 3 detik
     if (_audioPlayer.position > Duration(seconds: 3)) {
-      // If more than 3 seconds in, restart current song
+      print('MusicService.previous: Seeking to start of song');
       await _audioPlayer.seek(Duration.zero);
     } else {
+      print('MusicService.previous: Going to previous song');
+      await forcePrevious();
+    }
+  }
+
+  Future<void> forcePrevious() async {
+      if (_currentPlaylist.isEmpty) return;
+      
       // Go to previous song
       if (_isShuffled) {
         final random = Random();
@@ -285,7 +327,6 @@ class MusicService {
         _currentIndex = (_currentIndex - 1 + _currentPlaylist.length) % _currentPlaylist.length;
       }
       await playSong(_currentPlaylist[_currentIndex]);
-    }
   }
 
   Future<void> seek(Duration position) async {
